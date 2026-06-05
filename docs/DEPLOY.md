@@ -6,9 +6,11 @@
 
 | 站点 | 构建 | 部署 | 公网可达 |
 |---|---|---|---|
-| thaliox.com | ✅ | ✅ `/var/www/thaliox-com` | ✅ HTTPS(DNS+证书就绪) |
-| thaliox.io | ✅ | ✅ `/var/www/thaliox-io` | ✅ HTTPS(DNS+证书就绪) |
-| thaliox.dev | ✅ | ✅ `/var/www/thaliox-dev` | ⏳ **待办**:DNS 仍指 GitHub Pages(185.199.108.153),需改 A 记录到 `170.106.107.147`,之后用 certbot 签 TLS |
+| thaliox.com | ✅ | ✅ `/var/www/thaliox-com` | ✅ HTTPS |
+| thaliox.dev | ✅ | ✅ `/var/www/thaliox-dev` | ✅ HTTPS(DNS 已切到 oc,certbot 已签) |
+| thaliox.io | ✅ | ✅ `/var/www/thaliox-io` | ✅ HTTPS |
+
+三站均已 HTTPS 上线;三域名(及 www)A 记录指向 `170.106.107.147`,TLS 由 Let's Encrypt 自动续期。
 
 一键部署:`./deploy/deploy.sh [com|dev|io|all]`(见仓库 `deploy/`)。nginx 配置存于 `deploy/nginx/`。
 
