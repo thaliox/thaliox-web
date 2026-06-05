@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
-// 三站在不同域名下,站间一律绝对 URL。
+// Sites live on different domains — always link across with absolute URLs.
 const sites: NavigationMenuItem[] = [
-  { label: '品牌', to: 'https://thaliox.com', icon: 'i-lucide-sparkles' },
-  { label: '开发', to: 'https://thaliox.dev', icon: 'i-lucide-git-branch' },
-  { label: '文档', to: 'https://thaliox.io', icon: 'i-lucide-book-open' },
+  { label: 'Overview', to: 'https://thaliox.com', icon: 'i-lucide-sparkles' },
+  { label: 'Develop', to: 'https://thaliox.dev', icon: 'i-lucide-git-branch' },
+  { label: 'Docs', to: 'https://thaliox.io', icon: 'i-lucide-book-open' },
 ]
 </script>
 

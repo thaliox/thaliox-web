@@ -1,24 +1,25 @@
 ---
-title: THALIOX 文档
-description: 为 AI、由 AI 打造的操作系统 —— 上手、核心概念、指南与参考。
+title: THALIOX Docs
+description: An operating system for AI, by AI — getting started, core concepts, guides, and reference.
 ---
 
-# THALIOX 文档
+# THALIOX Docs
 
-THALIOX 是从第一性原理为 AI 的工作方式重新设计的操作系统。本站帮你**上手**、理解**核心概念**、查阅**参考**。
+THALIOX is an operating system redesigned from first principles around how AI actually works.
+These docs help you **get started**, understand the **core concepts**, and look things up in the **reference**.
 
-## 从这里开始
+## Start here
 
-- [快速上手](/getting-started) — 安装、跑通第一个自主 agent。
-- [核心概念](/concepts) — TAM 三原语、五不变量、八 crate。
+- [Getting started](/getting-started) — install and run your first autonomous agent.
+- [Core concepts](/concepts) — TAM's three primitives, five invariants, eight crates.
 
-## 它是什么
+## What it is
 
-- **向量消息** 取代文件 —— agent 间交换"意义"而非字节。
-- **注意力预算** 取代 CPU 时间片 —— 每次思考与行动按 token 计量、对账。
-- **能力令牌** 取代 uid/gid —— 签名 + 过期 + scope,副作用前先校验。
+- **Vector messages** replace files — agents exchange meaning, not bytes.
+- **Attention budgets** replace CPU time slices — every thought and action is metered and reconciled in tokens.
+- **Capability tokens** replace uid/gid — signature + expiry + scope, verified before any side effect.
 
-整个系统由 [TAM 抽象机契约](https://github.com/thaliox/thaliox-os/blob/main/docs/rfcs/0001-abstract-machine.md) 定义,
-从软件实现到未来自研硅遵守同一份语义。
+The whole system is defined by the [TAM Abstract Machine contract](https://github.com/thaliox/thaliox-os/blob/main/docs/rfcs/0001-abstract-machine.md),
+so the software implementation and future custom silicon obey one shared semantics.
 
-> 当前状态:**M1 单机 MVP 已交付(v0.1.0)**。详见 [开发进展](https://thaliox.dev)。
+> Current status: **M1 single-node MVP shipped (v0.1.0)**. See [development progress](https://thaliox.dev).

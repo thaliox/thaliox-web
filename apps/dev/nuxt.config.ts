@@ -3,11 +3,11 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'THALIOX 开发 — 进展 · 里程碑 · RFC',
+      title: 'THALIOX Development — Progress · Milestones · RFCs',
       meta: [
         {
           name: 'description',
-          content: 'THALIOX 开发进展:里程碑时间线、抽象机 RFC、Release、参与方式。',
+          content: 'THALIOX development: milestone timeline, abstract-machine RFC, releases, and how to contribute.',
         },
       ],
     },

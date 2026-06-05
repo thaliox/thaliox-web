@@ -11,9 +11,9 @@ const year = 2026
     </template>
 
     <div class="flex items-center gap-1 text-sm">
-      <UButton variant="link" color="neutral" to="https://thaliox.com">品牌</UButton>
-      <UButton variant="link" color="neutral" to="https://thaliox.dev">开发</UButton>
-      <UButton variant="link" color="neutral" to="https://thaliox.io">文档</UButton>
+      <UButton variant="link" color="neutral" to="https://thaliox.com">Overview</UButton>
+      <UButton variant="link" color="neutral" to="https://thaliox.dev">Develop</UButton>
+      <UButton variant="link" color="neutral" to="https://thaliox.io">Docs</UButton>
     </div>
 
     <template #right>

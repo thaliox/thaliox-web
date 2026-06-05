@@ -5,11 +5,11 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'THALIOX 文档',
+      title: 'THALIOX Docs',
       meta: [
         {
           name: 'description',
-          content: 'THALIOX 文档:上手、核心概念、指南、参考。',
+          content: 'THALIOX documentation: getting started, core concepts, guides, and reference.',
         },
       ],
     },

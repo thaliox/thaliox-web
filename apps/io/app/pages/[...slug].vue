@@ -10,7 +10,7 @@ const { data: navigation } = await useAsyncData('docs-nav', () =>
 )
 
 if (!page.value) {
-  throw createError({ statusCode: 404, statusMessage: '页面未找到', fatal: true })
+  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
 }
 
 useSeoMeta({

@@ -1,49 +1,49 @@
 <script setup lang="ts">
 const primitives = [
   {
-    title: '向量消息',
-    description: 'agent 间交换"意义"的单位,而非字节流。LLM 的 token 输出直接映射为系统语义,零解析。',
+    title: 'Vector Message',
+    description: 'The unit agents exchange is meaning, not byte streams. LLM token output maps directly to system semantics — zero parsing.',
     icon: 'i-lucide-waypoints',
   },
   {
-    title: '注意力预算',
-    description: '调度与资源核算的单位(token),取代 CPU 时间片。每一次思考与行动都按预算计量、对账。',
+    title: 'Attention Budget',
+    description: 'The unit of scheduling and accounting is the token, replacing the CPU time slice. Every thought and action is metered and reconciled.',
     icon: 'i-lucide-gauge',
   },
   {
-    title: '能力令牌',
-    description: '权限与信任的单位,取代 uid/gid。签名 + 过期 + scope,任何副作用前先校验。',
+    title: 'Capability Token',
+    description: 'The unit of permission and trust, replacing uid/gid. Signature + expiry + scope, verified before any side effect.',
     icon: 'i-lucide-key-round',
   },
 ]
 
 const contrasts = [
-  { from: '文件', to: '向量', icon: 'i-lucide-file-stack' },
-  { from: '字节管道', to: 'Token 流', icon: 'i-lucide-cable' },
-  { from: 'CPU 时间片', to: '注意力预算', icon: 'i-lucide-cpu' },
-  { from: 'uid / gid', to: '能力令牌', icon: 'i-lucide-shield-check' },
+  { from: 'files', to: 'Vectors', icon: 'i-lucide-file-stack' },
+  { from: 'byte pipes', to: 'Token streams', icon: 'i-lucide-cable' },
+  { from: 'CPU time slices', to: 'Attention budgets', icon: 'i-lucide-cpu' },
+  { from: 'uid / gid', to: 'Capability tokens', icon: 'i-lucide-shield-check' },
 ]
 </script>
 
 <template>
   <UPageHero
     title="Redefining Everything Through AI"
-    description="THALIOX 是为 AI、由 AI 打造的操作系统 —— 不是给 Linux 加装 agent,而是从第一性原理为 AI 的工作方式重新设计。"
+    description="THALIOX is an operating system for AI, by AI — not Linux with agents bolted on, but a system redesigned from first principles around how AI actually works."
     :ui="{ title: 'text-balance', description: 'text-balance' }"
   >
     <template #links>
       <UButton size="xl" to="https://thaliox.io" trailing-icon="i-lucide-arrow-right">
-        阅读文档
+        Read the docs
       </UButton>
       <UButton size="xl" color="neutral" variant="subtle" to="https://thaliox.dev">
-        看开发进展
+        See development
       </UButton>
     </template>
   </UPageHero>
 
   <UPageSection
-    title="不是给 Linux 加装 agent"
-    description="传统 OS 的每一层都假设终端前坐着一个人。THALIOX 假设核心处是一个智能体。"
+    title="Not Linux with agents bolted on"
+    description="Every layer of a traditional OS assumes a human at the terminal. THALIOX assumes an intelligence at the core."
   >
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <UPageCard
@@ -51,15 +51,15 @@ const contrasts = [
         :key="c.to"
         :icon="c.icon"
         :title="c.to"
-        :description="`取代 ${c.from}`"
+        :description="`replaces ${c.from}`"
         variant="subtle"
       />
     </div>
   </UPageSection>
 
   <UPageSection
-    title="TAM:三个第一性原语"
-    description="THALIOX 抽象机(TAM)用三个原语定义整个系统,从软件实现到未来自研硅都遵守同一份语义。"
+    title="TAM: three first-principles primitives"
+    description="The THALIOX Abstract Machine (TAM) defines the whole system with three primitives — one shared semantics from the software implementation to future custom silicon."
   >
     <div class="grid gap-6 md:grid-cols-3">
       <UPageCard
@@ -75,13 +75,13 @@ const contrasts = [
 
   <UPageSection>
     <UPageCTA
-      title="人类是底线"
-      description="可审计、可一键接管、可回滚,不可绕过。AI 自主运行,主权始终在人。"
+      title="Humans are the floor"
+      description="Auditable, one-key takeover, reversible — never bypassable. AI runs autonomously; sovereignty always stays with people."
       variant="naked"
     >
       <template #links>
         <UButton size="xl" to="https://github.com/thaliox/thaliox-os" target="_blank" icon="i-simple-icons-github">
-          在 GitHub 上关注
+          Follow on GitHub
         </UButton>
       </template>
     </UPageCTA>

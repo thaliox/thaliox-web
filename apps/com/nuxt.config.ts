@@ -8,7 +8,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            'THALIOX 是为 AI、由 AI 打造的操作系统。向量取代文件,Token 流取代字节管道,注意力预算取代 CPU 时间片。',
+            'THALIOX is an operating system for AI, by AI. Vectors replace files, token streams replace byte pipes, attention budgets replace CPU time slices.',
         },
       ],
     },

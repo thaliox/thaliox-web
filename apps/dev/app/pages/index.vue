@@ -2,34 +2,34 @@
 type Status = 'done' | 'active' | 'planned'
 
 const milestones: { id: string; title: string; detail: string; status: Status }[] = [
-  { id: 'M1', title: '单机 MVP', detail: 'Rust daemon + LLM + 向量记忆 + 自主 tool-calling + 能力门控 + 网关。v0.1.0 已交付。', status: 'done' },
-  { id: 'M2', title: 'microVM 化', detail: '一键部署 + 快照/恢复 + 自更新回滚。', status: 'active' },
-  { id: 'M3', title: '多实例 HA', detail: '热迁移 + CRDT 合并 + 自愈接管。', status: 'planned' },
-  { id: 'M4', title: '集群 + 多端', detail: 'agent↔agent + 团队编排 + 多端客户端。', status: 'planned' },
-  { id: 'M5', title: '学习型控制平面', detail: 'RL 调度 + 监督 agent + 自优化。', status: 'planned' },
-  { id: 'M6', title: '向下压栈', detail: 'eBPF → unikernel/抽象机契约 → kernel-bypass 向量传输 → FPGA 原语。', status: 'planned' },
-  { id: 'M7', title: '单原语流片', detail: '只流片一个独属于 THALIOX 的硅原语。', status: 'planned' },
-  { id: 'M8', title: '垂直整合节点', detail: '完整 THALIOX 机器。', status: 'planned' },
+  { id: 'M1', title: 'Single-node MVP', detail: 'Rust daemon + LLM + vector memory + autonomous tool-calling + capability gating + gateway. Shipped as v0.1.0.', status: 'done' },
+  { id: 'M2', title: 'microVM packaging', detail: 'One-command deploy + snapshot/restore + self-update rollback.', status: 'active' },
+  { id: 'M3', title: 'Multi-instance HA', detail: 'Live migration + CRDT merge + self-healing takeover.', status: 'planned' },
+  { id: 'M4', title: 'Cluster + multi-client', detail: 'agent↔agent + team orchestration + multi-client.', status: 'planned' },
+  { id: 'M5', title: 'Learning control plane', detail: 'RL scheduling + supervisor agents + self-optimization.', status: 'planned' },
+  { id: 'M6', title: 'Pushing down the stack', detail: 'eBPF → unikernel / abstract-machine contract → kernel-bypass vector transport → FPGA primitives.', status: 'planned' },
+  { id: 'M7', title: 'First primitive in silicon', detail: 'Tape out a single primitive that is uniquely THALIOX.', status: 'planned' },
+  { id: 'M8', title: 'Vertically integrated node', detail: 'A complete THALIOX machine.', status: 'planned' },
 ]
 
 const badge: Record<Status, { label: string; color: 'success' | 'primary' | 'neutral' }> = {
-  done: { label: '已交付', color: 'success' },
-  active: { label: '进行中', color: 'primary' },
-  planned: { label: '规划中', color: 'neutral' },
+  done: { label: 'Shipped', color: 'success' },
+  active: { label: 'In progress', color: 'primary' },
+  planned: { label: 'Planned', color: 'neutral' },
 }
 
 const links = [
-  { title: '主仓库 thaliox-os', description: '从 0 重构的 THALIOX 本体(Rust)。', icon: 'i-simple-icons-github', to: 'https://github.com/thaliox/thaliox-os' },
-  { title: 'TAM 抽象机 RFC-0001', description: '三原语 + 五不变量,软件到硅的共同契约。', icon: 'i-lucide-scroll-text', to: 'https://github.com/thaliox/thaliox-os/blob/main/docs/rfcs/0001-abstract-machine.md' },
-  { title: 'MASTER_PLAN', description: '自上而下 · 分步登月的完整路线。', icon: 'i-lucide-map', to: 'https://github.com/thaliox/thaliox-os/blob/main/docs/MASTER_PLAN.md' },
-  { title: 'Releases', description: '版本与变更日志。', icon: 'i-lucide-tag', to: 'https://github.com/thaliox/thaliox-os/releases' },
+  { title: 'Main repo — thaliox-os', description: 'The THALIOX core, rebuilt from scratch in Rust.', icon: 'i-simple-icons-github', to: 'https://github.com/thaliox/thaliox-os' },
+  { title: 'TAM Abstract Machine — RFC-0001', description: 'Three primitives + five invariants: the shared contract from software to silicon.', icon: 'i-lucide-scroll-text', to: 'https://github.com/thaliox/thaliox-os/blob/main/docs/rfcs/0001-abstract-machine.md' },
+  { title: 'Master Plan', description: 'The full top-down, staged-moonshot roadmap.', icon: 'i-lucide-map', to: 'https://github.com/thaliox/thaliox-os/blob/main/docs/MASTER_PLAN.md' },
+  { title: 'Become a contributor', description: 'How to contribute and apply for developer access.', icon: 'i-lucide-user-plus', to: 'https://github.com/thaliox/thaliox-os/blob/main/CONTRIBUTING.md' },
 ]
 </script>
 
 <template>
   <UPageHero
-    title="THALIOX 开发进展"
-    description="自上而下、分步登月。每个里程碑都独立可用、可演示、可证伪下一阶段。"
+    title="THALIOX Development"
+    description="Top-down and staged. Every milestone is independently usable, demonstrable, and falsifies the next stage."
     :ui="{ title: 'text-balance' }"
   >
     <template #links>
@@ -37,12 +37,12 @@ const links = [
         thaliox-os
       </UButton>
       <UButton size="xl" color="neutral" variant="subtle" to="https://thaliox.io">
-        文档
+        Docs
       </UButton>
     </template>
   </UPageHero>
 
-  <UPageSection title="里程碑" description="H1 软件 → H2 专门化 → H3 协同设计的硅。">
+  <UPageSection title="Milestones" description="H1 software → H2 specialization → H3 co-designed silicon.">
     <div class="flex flex-col gap-3">
       <UCard v-for="m in milestones" :key="m.id" variant="subtle">
         <div class="flex items-start gap-4">
@@ -61,7 +61,7 @@ const links = [
     </div>
   </UPageSection>
 
-  <UPageSection title="入口">
+  <UPageSection title="Entry points">
     <div class="grid gap-4 sm:grid-cols-2">
       <UPageCard
         v-for="l in links"

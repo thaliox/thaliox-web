@@ -1,53 +1,60 @@
-# thaliox-web — THALIOX 官网 monorepo
+# thaliox-web — THALIOX websites monorepo
 
-[THALIOX](https://github.com/thaliox/thaliox-os) 是为 AI、由 AI 打造的操作系统。
-本仓库是它的**对外门面**:三个域名、三种定位,共享一套设计系统,用 **Nuxt 4 + Nuxt UI** 构建,
-静态产物部署在 `oc.thaliox.dev` 主机。
+[THALIOX](https://github.com/thaliox/thaliox-os) is an operating system for AI, by AI.
+This repo is its public face: three domains, three roles, one shared design system, built with
+**Nuxt 4 + Nuxt UI** and deployed as static sites on the `oc.thaliox.dev` host.
 
-| 域名 | 定位 | app | 内容来源 |
+| Domain | Role | App | Content source |
 |---|---|---|---|
-| **thaliox.com** | 品牌站 — 愿景、叙事、第一印象 | `apps/com` | 手写页面 |
-| **thaliox.dev** | 开发站 — 进展、里程碑、RFC、变更日志 | `apps/dev` | 手写 + 同步自 `thaliox-os` |
-| **thaliox.io** | 文档站 — 上手、概念、参考 | `apps/io` | `@nuxt/content`(Markdown) |
+| **thaliox.com** | Brand — vision, narrative, first impression | `apps/com` | hand-written pages |
+| **thaliox.dev** | Development — progress, milestones, RFCs, changelog | `apps/dev` | hand-written + synced from `thaliox-os` |
+| **thaliox.io** | Docs — getting started, concepts, reference | `apps/io` | `@nuxt/content` (Markdown) |
 
-三站共享 `layers/brand`:配色、字体、Logo、页眉页脚、设计令牌——**改一处,三站同步**。
+All three share `layers/brand`: colors, fonts, logo, header/footer, design tokens — **change it once, all three update**.
 
-## 结构
+## Structure
 
 ```
 thaliox-web/
-├─ docs/                  本仓库的架构/站点/部署说明
+├─ docs/                  architecture / sites / deploy notes for this repo
 ├─ layers/
-│  └─ brand/              共享设计层(Nuxt Layer):UI 配置、品牌色、TheHeader/TheFooter、app.vue 外壳
+│  └─ brand/              shared design layer (Nuxt Layer): UI config, brand colors, TheHeader/TheFooter, app.vue shell
 ├─ apps/
-│  ├─ com/                品牌站  → thaliox.com
-│  ├─ dev/                开发站  → thaliox.dev
-│  └─ io/                 文档站  → thaliox.io(@nuxt/content)
+│  ├─ com/                brand site  → thaliox.com
+│  ├─ dev/                dev site    → thaliox.dev
+│  └─ io/                 docs site   → thaliox.io (@nuxt/content)
+├─ deploy/                deploy.sh + nginx configs
 ├─ pnpm-workspace.yaml
-└─ package.json           workspace 脚本
+└─ package.json           workspace scripts
 ```
 
-## 开发
+## Develop
 
 ```bash
-pnpm install              # 安装全部 workspace 依赖
-pnpm dev:com              # 起品牌站(同理 dev:dev / dev:io)
+pnpm install              # install all workspace dependencies
+pnpm dev:com              # run the brand site (also dev:dev / dev:io)
 ```
 
-## 构建(静态 SSG)
+## Build (static SSG)
 
 ```bash
-pnpm build                # 三站各自 nuxt generate,产物在 apps/*/.output/public
-pnpm build:io             # 只构建文档站
+pnpm build                # each site runs nuxt generate → apps/*/.output/public
+pnpm build:io             # build only the docs site
 ```
 
-部署到 `oc.thaliox.dev` 与 nginx 配置见 [docs/DEPLOY.md](docs/DEPLOY.md)。
+## Deploy
 
-## 文档
+```bash
+./deploy/deploy.sh [com|dev|io|all]
+```
 
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — 为什么是 monorepo + 共享层、技术选型、构建流水线。
-- [docs/SITES.md](docs/SITES.md) — 三站各自的定位、信息架构、内容规划。
-- [docs/DEPLOY.md](docs/DEPLOY.md) — oc 主机、nginx、域名、部署流程。
+Host, nginx, and DNS details are in [docs/DEPLOY.md](docs/DEPLOY.md).
+
+## Docs
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — why monorepo + shared layer, tech choices, build pipeline.
+- [docs/SITES.md](docs/SITES.md) — each site's role, information architecture, content plan.
+- [docs/DEPLOY.md](docs/DEPLOY.md) — oc host, nginx, domains, deploy flow.
 
 ## License
 
