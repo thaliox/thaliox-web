@@ -1,0 +1,26 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# nuxt
+.nuxt
+.output
+.data
+dist
+.nitro
+.cache
+
+# logs
+*.log
+npm-debug.log*
+
+# env
+.env
+.env.*
+!.env.example
+
+# editor / os
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json

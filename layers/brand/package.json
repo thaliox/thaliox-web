@@ -1,0 +1,13 @@
+{
+  "name": "@thaliox/brand",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./nuxt.config.ts",
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.18",
+    "@iconify-json/simple-icons": "^1.2.20",
+    "@nuxt/image": "^2.0.0",
+    "@nuxt/ui": "^4.8.1"
+  }
+}

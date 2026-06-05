@@ -1,0 +1,21 @@
+{
+  "name": "thaliox-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "THALIOX 官网 monorepo — 三站(com 品牌 / dev 开发 / io 文档),Nuxt 4 + Nuxt UI,共享设计层",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev:com": "pnpm --filter @thaliox/com dev",
+    "dev:dev": "pnpm --filter @thaliox/dev dev",
+    "dev:io": "pnpm --filter @thaliox/io dev",
+    "build": "pnpm -r --filter=./apps/* generate",
+    "build:com": "pnpm --filter @thaliox/com generate",
+    "build:dev": "pnpm --filter @thaliox/dev generate",
+    "build:io": "pnpm --filter @thaliox/io generate",
+    "lint": "eslint ."
+  }
+}
