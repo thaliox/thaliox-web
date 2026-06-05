@@ -2,6 +2,19 @@
 
 三站都是静态产物,由 `oc.thaliox.dev` 上的 nginx 直接 serve。
 
+## 当前状态(2026-06-05)
+
+| 站点 | 构建 | 部署 | 公网可达 |
+|---|---|---|---|
+| thaliox.com | ✅ | ✅ `/var/www/thaliox-com` | ✅ HTTPS(DNS+证书就绪) |
+| thaliox.io | ✅ | ✅ `/var/www/thaliox-io` | ✅ HTTPS(DNS+证书就绪) |
+| thaliox.dev | ✅ | ✅ `/var/www/thaliox-dev` | ⏳ **待办**:DNS 仍指 GitHub Pages(185.199.108.153),需改 A 记录到 `170.106.107.147`,之后用 certbot 签 TLS |
+
+一键部署:`./deploy/deploy.sh [com|dev|io|all]`(见仓库 `deploy/`)。nginx 配置存于 `deploy/nginx/`。
+
+> **io 构建注意**:`@nuxt/content` v3 依赖 `better-sqlite3`(已锁 ^12),且生成时易 OOM——
+> io 的 `generate` 脚本已内置 `NODE_OPTIONS=--max-old-space-size=3072`。
+
 ## 主机
 
 - **oc.thaliox.dev**(170.106.107.147,腾讯云 · Ubuntu 24.04)
