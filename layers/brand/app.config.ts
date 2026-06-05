@@ -1,4 +1,4 @@
-// THALIOX 设计令牌 —— 改这里,三站同步。
+// THALIOX design tokens — change here, all three sites stay in sync.
 export default defineAppConfig({
   ui: {
     colors: {

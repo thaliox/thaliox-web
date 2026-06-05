@@ -1,52 +1,52 @@
-# 架构 — thaliox-web
+# Architecture — thaliox-web
 
-> 三个域名、三种定位、一套设计系统。本文解释**为什么这样组织**,以及代码、构建、部署如何衔接。
+> Three domains, three positionings, one design system. This document explains **why it is organized this way** and how code, build, and deploy fit together.
 
-## 1. 设计目标
+## 1. Design goals
 
-1. **品牌一致** — 三站看起来是同一个 THALIOX:同一套配色、字体、Logo、页眉页脚。
-2. **各站解耦** — 品牌站改版不应牵动文档站;每站独立构建、独立部署、独立回滚。
-3. **静态优先** — 三站都是静态站点(SSG),nginx 直接 serve,无 node 常驻、无运行时攻击面、CDN 友好。
-4. **低维护** — 改一次品牌色/页脚链接,三站同步;文档用 Markdown 写,不碰 Vue。
+1. **Brand consistency** — the three sites should look like the same THALIOX: the same palette, fonts, logo, header and footer.
+2. **Per-site decoupling** — a redesign of the brand site should not disturb the docs site; each site builds, deploys, and rolls back independently.
+3. **Static first** — all three are static sites (SSG), served directly by nginx, with no resident node process, no runtime attack surface, and CDN-friendly.
+4. **Low maintenance** — change a brand color or footer link once and all three sites pick it up; docs are written in Markdown, never touching Vue.
 
-## 2. 选型:Monorepo + 共享 Nuxt Layer
+## 2. Choice: Monorepo + shared Nuxt Layer
 
-在三种组织方式中(三独立项目 / 单 app 多域 / monorepo+共享层),选 **monorepo + 共享层**:
+Among three ways to organize this (three independent projects / one app serving multiple domains / monorepo + shared layer), we chose **monorepo + shared layer**:
 
-- **三独立项目**否决:品牌、配色、页眉页脚要在三处各自维护,必然走样。
-- **单 app 按域名渲染**否决:三站强耦合,且需 node SSR 常驻——与"静态优先"冲突。
-- **monorepo + 共享层**胜出:`layers/brand` 是一个 [Nuxt Layer](https://nuxt.com/docs/getting-started/layers),
-  三个 app 通过 `extends` 继承它的 UI 配置、设计令牌与共享组件;但**各 app 是独立的 Nuxt 应用,独立 `nuxt generate`**。
-  共享与解耦兼得。
+- **Three independent projects** rejected: brand, palette, header and footer would each be maintained in three places and inevitably drift.
+- **One app rendering per domain** rejected: the three sites become tightly coupled and require a resident node SSR — conflicting with "static first."
+- **Monorepo + shared layer** wins: `layers/brand` is a [Nuxt Layer](https://nuxt.com/docs/getting-started/layers),
+  and the three apps inherit its UI config, design tokens, and shared components via `extends`; but **each app is an independent Nuxt application with its own `nuxt generate`**.
+  Sharing and decoupling at the same time.
 
 ```
-          layers/brand  (Nuxt Layer:@nuxt/ui 配置 · 品牌色 · 字体 · TheHeader/TheFooter · app.vue 外壳)
+          layers/brand  (Nuxt Layer: @nuxt/ui config · brand colors · fonts · TheHeader/TheFooter · app.vue shell)
           ╱      │      ╲
-   apps/com  apps/dev  apps/io        ← 各 extends brand,各自独立构建
+   apps/com  apps/dev  apps/io        ← each extends brand, each builds independently
       │         │         │
  thaliox.com thaliox.dev thaliox.io
 ```
 
-## 3. 技术栈
+## 3. Tech stack
 
-| 关注点 | 选型 | 说明 |
+| Concern | Choice | Notes |
 |---|---|---|
-| 框架 | **Nuxt 4** | `app/` 作为源目录;`nuxt generate` 出纯静态。 |
-| UI | **Nuxt UI 4** | 一套组件 + 主题系统(`app.config.ts` 定义品牌色);含 UHeader/UFooter/UPageHero 等布局件。 |
-| 文档 | **@nuxt/content 3** | 仅 `apps/io`:Markdown 驱动,文件即路由。 |
-| 图像 | **@nuxt/image** | 优化 Logo/插图。 |
-| 包管理 | **pnpm workspace** | `layers/*` + `apps/*`;依赖提升、硬链接、构建快。 |
-| 运行时 | **Node 22 LTS** | 仅构建期需要;产物是静态文件,运行期只有 nginx。 |
+| Framework | **Nuxt 4** | `app/` as the source directory; `nuxt generate` emits pure static. |
+| UI | **Nuxt UI 4** | One component set + theming system (`app.config.ts` defines the brand colors); includes layout pieces such as UHeader/UFooter/UPageHero. |
+| Docs | **@nuxt/content 3** | `apps/io` only: Markdown-driven, files as routes. |
+| Images | **@nuxt/image** | Optimizes logos and illustrations. |
+| Package manager | **pnpm workspace** | `layers/*` + `apps/*`; dependency hoisting, hard links, fast builds. |
+| Runtime | **Node 22 LTS** | Needed at build time only; the output is static files, and at runtime there is only nginx. |
 
-## 4. 共享层 `layers/brand` 提供什么
+## 4. What the shared layer `layers/brand` provides
 
-- **`nuxt.config.ts`** — 注册 `@nuxt/ui`、`@nuxt/image`;引入全局 CSS(用绝对路径解析,确保被 app 继承时仍指向 layer 自身的 css)。
-- **`app.config.ts`** — Nuxt UI 主题:`primary` / `neutral` 品牌色、圆角等设计令牌。
-- **`app/assets/css/main.css`** — `@import "tailwindcss"; @import "@nuxt/ui";` + 品牌变量。
-- **`app/app.vue`** — 站点外壳:`UApp > TheHeader + UMain > NuxtPage + TheFooter`。app 只需提供 `pages/`。
-- **`app/components/TheHeader.vue` / `TheFooter.vue`** — 跨域导航(品牌/开发/文档用**绝对 URL** 互链)、GitHub 链接、版权。
+- **`nuxt.config.ts`** — registers `@nuxt/ui` and `@nuxt/image`; imports the global CSS (resolved by absolute path so it still points at the layer's own css when inherited by an app).
+- **`app.config.ts`** — Nuxt UI theme: `primary` / `neutral` brand colors, border radius, and other design tokens.
+- **`app/assets/css/main.css`** — `@import "tailwindcss"; @import "@nuxt/ui";` + brand variables.
+- **`app/app.vue`** — the site shell: `UApp > TheHeader + UMain > NuxtPage + TheFooter`. An app only needs to provide `pages/`.
+- **`app/components/TheHeader.vue` / `TheFooter.vue`** — cross-domain navigation (brand/dev/docs link to each other via **absolute URLs**), GitHub link, copyright.
 
-每个 app 的 `nuxt.config.ts` 只需:
+Each app's `nuxt.config.ts` only needs:
 
 ```ts
 export default defineNuxtConfig({
@@ -55,29 +55,29 @@ export default defineNuxtConfig({
 })
 ```
 
-## 5. 构建与部署流水线
+## 5. Build and deploy pipeline
 
 ```
-源码(本仓库)
+source (this repo)
    └─ pnpm install
-   └─ pnpm build                  # 三站各 nuxt generate
+   └─ pnpm build                  # nuxt generate for each of the three sites
         → apps/com/.output/public
         → apps/dev/.output/public
         → apps/io/.output/public
-   └─ rsync 各产物 → oc:/var/www/thaliox-{com,dev,io}
-   └─ nginx 三 server 块各指一个 root,reload
+   └─ rsync each output → oc:/var/www/thaliox-{com,dev,io}
+   └─ nginx's three server blocks each point at one root, reload
 ```
 
-- **构建在哪**:`oc.thaliox.dev`(已装 Node 22 + pnpm),或本地构建后 rsync。
-- **为何 rsync 到 `/var/www/*` 而非直接 serve `.output/public`**:源码目录与 web root 分离,nginx 不暴露源码;切换/回滚只换目录。
-- 详细命令见 [DEPLOY.md](DEPLOY.md)。
+- **Where to build**: `oc.thaliox.dev` (Node 22 + pnpm already installed), or build locally and rsync.
+- **Why rsync to `/var/www/*` instead of serving `.output/public` directly**: the source directory is separated from the web root, so nginx never exposes the source; switching or rolling back is just a directory swap.
+- See [DEPLOY.md](DEPLOY.md) for the detailed commands.
 
-## 6. 跨站链接约定
+## 6. Cross-site linking convention
 
-三站在不同域名下,**站间链接一律用绝对 URL**(`https://thaliox.dev/...`),站内链接用相对路径。
-共享页眉页脚集中维护这些跨域链接,避免散落。
+The three sites live on different domains, so **links between sites always use absolute URLs** (`https://thaliox.dev/...`), while in-site links use relative paths.
+The shared header and footer maintain these cross-domain links centrally, so they are not scattered around.
 
-## 7. 演进
+## 7. Evolution
 
-- 内容随 [THALIOX 主线](https://github.com/thaliox/thaliox-os)推进:M1 已交付 → dev 站登里程碑、io 站补上手文档。
-- 旧官网仓库 `thaliox/site`(VTCP/SFS/CHROMA 旧设计叙事)已归档,不再延续;本仓库是从 TAM 三原语重新组织的门面。
+- Content advances with the [THALIOX mainline](https://github.com/thaliox/thaliox-os): M1 is delivered → the dev site lists the milestone, the io site fills in the getting-started docs.
+- The old site repo `thaliox/site` (the legacy VTCP/SFS/CHROMA design narrative) is archived and not carried forward; this repo is a façade reorganized from the three TAM primitives.

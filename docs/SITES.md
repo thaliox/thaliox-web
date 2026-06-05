@@ -1,58 +1,58 @@
-# 三站定位与内容规划
+# Site positioning and content plan
 
-三个域名服务三类访客、三种意图。共享品牌,但信息架构与语气各不相同。
-
----
-
-## thaliox.com — 品牌站
-
-- **访客**:第一次听说 THALIOX 的人(潜在用户、投资人、媒体、招聘候选人)。
-- **意图**:30 秒内理解"这是什么、为什么不同、为什么重要"。
-- **语气**:愿景、自信、克制;少术语,多隐喻("向量取代文件、注意力预算取代 CPU 时间片")。
-- **信息架构**:
-  - Hero — 一句话定位 + 两个 CTA(去文档 / 看进展)。
-  - 为什么不是 "Linux + Agent" — 三到四个对比要点。
-  - TAM 三原语速览 — 向量消息 / 注意力预算 / 能力令牌。
-  - 五不变量(人类是底线)一瞥。
-  - 行动召唤 — GitHub Star、加入、联系。
-- **不做**:不堆 API 细节、不放长文档——那是 io 的事。
-
-## thaliox.dev — 开发站
-
-- **访客**:想参与或跟踪进展的开发者、贡献者。
-- **意图**:"现在做到哪了、下一步是什么、我怎么参与"。
-- **语气**:务实、透明、工程化;给真实数据(测试数、里程碑、实测证据)。
-- **信息架构**:
-  - 里程碑时间线 — H1/H2/H3,**M1 ✅ 已交付(v0.1.0)**,M2 进行中。
-  - RFC / 抽象机契约 — 链接 `docs/rfcs/0001-abstract-machine.md`。
-  - 变更日志 / Release — 同步自 `thaliox-os` 的 GitHub Release。
-  - 架构总览 — 八 crate 一图。
-  - 参与方式 — 仓库、Issue、讨论、贡献指南。
-- **数据来源**:尽量从 `thaliox-os` 仓库同步(里程碑、Release、crate 列表),减少手工漂移。
-
-## thaliox.io — 文档站
-
-- **访客**:正在用或评估 THALIOX 的工程师。
-- **意图**:"怎么装、怎么跑第一个 agent、概念怎么理解、API 怎么查"。
-- **语气**:精确、可操作、示例优先。
-- **信息架构**(`@nuxt/content`,Markdown 即路由):
-  - 上手 — 安装、跑通 `autonomous_agent`、第一个自主 agent。
-  - 核心概念 — TAM 三原语、五不变量、八 crate 各自职责。
-  - 指南 — 接 LLM provider、写工具、能力令牌、注意力预算对账。
-  - 参考 — crate API、配置项、CLI。
-- **写作约定**:每页 frontmatter 带 `title`/`description`;代码块可运行;术语首次出现链接到概念页。
+The three domains serve three kinds of visitors and three intents. They share the brand, but their information architecture and tone each differ.
 
 ---
 
-## 内容迁移说明
+## thaliox.com — brand site
 
-旧官网(`thaliox/site`,已归档)的内容是早期设计(VTCP/SFS/CHROMA/NIL)的叙事,**不迁移**。
-新三站的内容围绕 [TAM 三原语 + 八 crate](https://github.com/thaliox/thaliox-os) 重写。
-首页的核心隐喻("向量取代文件…")是 THALIOX 一贯愿景,保留。
+- **Visitors**: people hearing about THALIOX for the first time (prospective users, investors, press, hiring candidates).
+- **Intent**: understand "what this is, why it's different, why it matters" within 30 seconds.
+- **Tone**: visionary, confident, restrained; few jargon terms, many metaphors ("vectors replace files, the attention budget replaces CPU time slices").
+- **Information architecture**:
+  - Hero — a one-line positioning + two CTAs (go to docs / see progress).
+  - Why not "Linux + Agent" — three to four contrast points.
+  - TAM three primitives at a glance — Vector Message / Attention Budget / Capability Token.
+  - A glimpse of the five invariants (humans are the floor).
+  - Call to action — GitHub Star, join, contact.
+- **Out of scope**: no piling on of API detail, no long docs — that is io's job.
 
-## 内容优先级(分步)
+## thaliox.dev — dev site
 
-1. **P0 骨架** — 三站可上线,各有品牌一致的占位/首屏,跨站导航通。 ← 当前
-2. **P1 品牌站** — thaliox.com 完整 landing。
-3. **P1 文档站** — thaliox.io 上手 + 核心概念(对齐 M1)。
-4. **P2 开发站** — thaliox.dev 里程碑时间线 + Release 同步。
+- **Visitors**: developers and contributors who want to take part or track progress.
+- **Intent**: "where are we now, what's next, how do I get involved".
+- **Tone**: pragmatic, transparent, engineering-minded; gives real data (test counts, milestones, empirical evidence).
+- **Information architecture**:
+  - Milestone timeline — H1/H2/H3, **M1 ✅ delivered (v0.1.0)**, M2 in progress.
+  - RFC / abstract machine contract — links to `docs/rfcs/0001-abstract-machine.md`.
+  - Changelog / Release — synced from `thaliox-os` GitHub Releases.
+  - Architecture overview — eight crates in one diagram.
+  - How to get involved — repo, issues, discussions, contribution guide.
+- **Data source**: sync from the `thaliox-os` repo as much as possible (milestones, Releases, crate list) to reduce manual drift.
+
+## thaliox.io — docs site
+
+- **Visitors**: engineers using or evaluating THALIOX.
+- **Intent**: "how to install, how to run the first agent, how to understand the concepts, how to look up the API".
+- **Tone**: precise, actionable, example-first.
+- **Information architecture** (`@nuxt/content`, Markdown as routes):
+  - Getting started — install, run `autonomous_agent`, your first autonomous agent.
+  - Core concepts — TAM three primitives, the five invariants, the responsibilities of each of the eight crates.
+  - Guides — wiring up an LLM provider, writing tools, capability tokens, attention budget reconciliation.
+  - Reference — crate APIs, config options, CLI.
+- **Writing conventions**: every page carries `title`/`description` in frontmatter; code blocks are runnable; a term links to its concept page on first appearance.
+
+---
+
+## Content migration notes
+
+The old site (`thaliox/site`, archived) content is the narrative of the early design (VTCP/SFS/CHROMA/NIL) and is **not migrated**.
+The content of the new three sites is rewritten around the [TAM three primitives + eight crates](https://github.com/thaliox/thaliox-os).
+The homepage's core metaphor ("vectors replace files...") is THALIOX's consistent vision and is kept.
+
+## Content priority (staged)
+
+1. **P0 skeleton** — the three sites can go live, each with a brand-consistent placeholder/above-the-fold, cross-site navigation working. ← current
+2. **P1 brand site** — a complete landing page for thaliox.com.
+3. **P1 docs site** — thaliox.io getting started + core concepts (aligned with M1).
+4. **P2 dev site** — thaliox.dev milestone timeline + Release sync.

@@ -1,66 +1,66 @@
-# 部署 — oc.thaliox.dev
+# Deploy — oc.thaliox.dev
 
-三站都是静态产物,由 `oc.thaliox.dev` 上的 nginx 直接 serve。
+All three sites are static output, served directly by nginx on `oc.thaliox.dev`.
 
-## 当前状态(2026-06-05)
+## Current status (2026-06-05)
 
-| 站点 | 构建 | 部署 | 公网可达 |
+| Site | Build | Deploy | Public reachable |
 |---|---|---|---|
 | thaliox.com | ✅ | ✅ `/var/www/thaliox-com` | ✅ HTTPS |
-| thaliox.dev | ✅ | ✅ `/var/www/thaliox-dev` | ✅ HTTPS(DNS 已切到 oc,certbot 已签) |
+| thaliox.dev | ✅ | ✅ `/var/www/thaliox-dev` | ✅ HTTPS (DNS now points at oc, certbot has signed) |
 | thaliox.io | ✅ | ✅ `/var/www/thaliox-io` | ✅ HTTPS |
 
-三站均已 HTTPS 上线;三域名(及 www)A 记录指向 `170.106.107.147`,TLS 由 Let's Encrypt 自动续期。
+All three sites are live over HTTPS; the A records for the three domains (and www) point to `170.106.107.147`, with TLS auto-renewed by Let's Encrypt.
 
-一键部署:`./deploy/deploy.sh [com|dev|io|all]`(见仓库 `deploy/`)。nginx 配置存于 `deploy/nginx/`。
+One-click deploy: `./deploy/deploy.sh [com|dev|io|all]` (see `deploy/` in the repo). The nginx config lives under `deploy/nginx/`.
 
-> **io 构建注意**:`@nuxt/content` v3 依赖 `better-sqlite3`(已锁 ^12),且生成时易 OOM——
-> io 的 `generate` 脚本已内置 `NODE_OPTIONS=--max-old-space-size=3072`。
+> **io build note**: `@nuxt/content` v3 depends on `better-sqlite3` (pinned to ^12) and tends to OOM during generation —
+> io's `generate` script already bakes in `NODE_OPTIONS=--max-old-space-size=3072`.
 
-## 主机
+## Host
 
-- **oc.thaliox.dev**(170.106.107.147,腾讯云 · Ubuntu 24.04)
-- SSH:`ssh -p 65522 root@oc.thaliox.dev`(端口 **65522**,非标准 22)
-- 已装:nginx 1.24、Node 22 LTS、pnpm 9
-- 源码工作区:`/opt/thaliox-web`
-- web roots:`/var/www/thaliox-com` · `/var/www/thaliox-dev` · `/var/www/thaliox-io`
+- **oc.thaliox.dev** (170.106.107.147, Tencent Cloud · Ubuntu 24.04)
+- SSH: `ssh -p 65522 root@oc.thaliox.dev` (port **65522**, not the standard 22)
+- Installed: nginx 1.24, Node 22 LTS, pnpm 9
+- Source workspace: `/opt/thaliox-web`
+- web roots: `/var/www/thaliox-com` · `/var/www/thaliox-dev` · `/var/www/thaliox-io`
 
-## 域名 → root 映射
+## Domain → root mapping
 
-| 域名 | nginx server_name | root |
+| Domain | nginx server_name | root |
 |---|---|---|
 | thaliox.com (+ www) | `thaliox.com www.thaliox.com` | `/var/www/thaliox-com` |
 | thaliox.dev (+ www) | `thaliox.dev www.thaliox.dev` | `/var/www/thaliox-dev` |
 | thaliox.io (+ www) | `thaliox.io www.thaliox.io` | `/var/www/thaliox-io` |
 
-> 旧配置里 thaliox.com 与 thaliox.io 曾共用 `/var/www/thaliox-site`(旧设计静态站),
-> thaliox.dev 未配置。新方案三域名各自独立 root。旧目录保留作回滚。
+> In the old config, thaliox.com and thaliox.io once shared `/var/www/thaliox-site` (the legacy static design site),
+> and thaliox.dev was not configured. The new scheme gives each of the three domains its own root. The old directory is kept for rollback.
 
-## 首次部署
+## First deploy
 
 ```bash
-# 1. 同步源码到 oc(本地仓库 → oc 工作区)
+# 1. Sync source to oc (local repo → oc workspace)
 rsync -az --delete --exclude node_modules --exclude .output --exclude .nuxt \
   ./ -e 'ssh -p 65522' root@oc.thaliox.dev:/opt/thaliox-web/
 
-# 2. 在 oc 上安装 + 构建三站
+# 2. Install + build the three sites on oc
 ssh -p 65522 root@oc.thaliox.dev '
   cd /opt/thaliox-web && pnpm install && pnpm build'
 
-# 3. 各站产物 → web root
+# 3. Each site's output → web root
 ssh -p 65522 root@oc.thaliox.dev '
   for s in com dev io; do
     mkdir -p /var/www/thaliox-$s
     rsync -a --delete /opt/thaliox-web/apps/$s/.output/public/ /var/www/thaliox-$s/
   done'
 
-# 4. 安装 nginx 站点配置(见 deploy/nginx/ ),启用并 reload
+# 4. Install the nginx site config (see deploy/nginx/), enable it and reload
 ssh -p 65522 root@oc.thaliox.dev 'nginx -t && systemctl reload nginx'
 ```
 
 ## TLS
 
-用 certbot 为三域名签发(含 www):
+Issue with certbot for the three domains (including www):
 
 ```bash
 certbot --nginx -d thaliox.com -d www.thaliox.com \
@@ -68,11 +68,11 @@ certbot --nginx -d thaliox.com -d www.thaliox.com \
                 -d thaliox.io  -d www.thaliox.io
 ```
 
-## 日常更新
+## Routine updates
 
-改完内容 → 本地 `pnpm build:<站>` 验证 → 重复上面 1–3 步对应单站 → 无需 reload(只换静态文件)。
-后续可把这套放进 CI(push 到 main 自动构建 + rsync)。
+Edit content → verify locally with `pnpm build:<site>` → repeat steps 1-3 above for the single site → no reload needed (only static files change).
+Later this can be wired into CI (push to main auto-builds + rsyncs).
 
-## DNS(在域名注册商处)
+## DNS (at the domain registrar)
 
-三域名(及 www)A 记录指向 `170.106.107.147`。`thaliox.dev` 此前未指向本机的话需补。
+The A records for the three domains (and www) point to `170.106.107.147`. If `thaliox.dev` did not previously point here, add it.
