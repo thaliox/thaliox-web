@@ -45,19 +45,19 @@ const columns = [
 <template>
   <UFooter>
     <template #top>
-      <UFooterColumns :columns="columns">
-        <template #left>
-          <div class="max-w-xs">
-            <NuxtLink to="/" class="flex items-center gap-2 text-lg font-bold tracking-tight">
-              <span class="text-primary text-xl">▣</span>
-              <span>THALIOX</span>
-            </NuxtLink>
-            <p class="text-sm text-muted mt-3">
-              An operating system for AI, by AI, ultimately for Humans.
-            </p>
-          </div>
-        </template>
-      </UFooterColumns>
+      <!-- Row 1: brand + tagline (full width, on its own line). -->
+      <div class="mb-8 max-w-md">
+        <NuxtLink to="/" class="flex items-center gap-2 text-lg font-bold tracking-tight">
+          <span class="text-primary text-xl">▣</span>
+          <span>THALIOX</span>
+        </NuxtLink>
+        <p class="text-sm text-muted mt-3">
+          An operating system for AI, by AI, ultimately for Humans.
+        </p>
+      </div>
+
+      <!-- Row 2: link columns. -->
+      <UFooterColumns :columns="columns" />
     </template>
 
     <template #left>
