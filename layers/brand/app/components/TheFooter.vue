@@ -8,6 +8,7 @@ const columns = [
     label: 'Get started',
     children: [
       { label: 'Documentation', to: 'https://thaliox.io' },
+      { label: 'Getting started', to: 'https://thaliox.io/getting-started' },
       { label: 'Core concepts', to: 'https://thaliox.io/concepts' },
       { label: 'Abstract Machine — RFC-0001', to: `${repo}/blob/main/docs/rfcs/0001-abstract-machine.md`, target: '_blank' },
     ],
