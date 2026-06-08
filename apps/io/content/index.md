@@ -22,4 +22,4 @@ These docs help you **get started**, understand the **core concepts**, and look 
 The whole system is defined by the [TAM Abstract Machine contract](https://github.com/thaliox/thaliox-os/blob/main/docs/rfcs/0001-abstract-machine.md),
 so the software implementation and future custom silicon obey one shared semantics.
 
-> Current status: **M1 single-node MVP shipped (v0.1.0)**; **M2 microVM-ization complete** — agents run inside a real Firecracker microVM with snapshot/restore. See [development progress](https://thaliox.dev).
+> Current status: **M4 cluster + multi-platform shipped (v0.4.0)** — THALIOX is now an operating system for a distributed society of agents: agents run inside real Firecracker microVMs (M2), survive node loss via CRDT merge + a self-healing supervisor (M3), and collaborate over a fabric across hosts — cross-host live migration validated on two KVM machines, teams in four paradigms, and one capability-gated cluster front door (M4). See [development progress](https://thaliox.dev).

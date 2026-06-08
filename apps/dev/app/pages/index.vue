@@ -4,9 +4,9 @@ type Status = 'done' | 'active' | 'planned'
 const milestones: { id: string; title: string; detail: string; status: Status }[] = [
   { id: 'M1', title: 'Single-node MVP', detail: 'Rust daemon + LLM + vector memory + autonomous tool-calling + capability gating + gateway. Shipped as v0.1.0.', status: 'done' },
   { id: 'M2', title: 'microVM-ization', detail: 'One-command deploy + snapshot/restore + self-update rollback. The agent now runs inside a real Firecracker microVM — vsock deploy, VM snapshot/restore — atop the software layer. Shipped.', status: 'done' },
-  { id: 'M3', title: 'Multi-instance HA', detail: 'Live migration + CRDT merge + self-healing takeover.', status: 'planned' },
-  { id: 'M4', title: 'Cluster + multi-client', detail: 'agent↔agent + team orchestration + multi-client.', status: 'planned' },
-  { id: 'M5', title: 'Learning control plane', detail: 'RL scheduling + supervisor agents + self-optimization.', status: 'planned' },
+  { id: 'M3', title: 'Multi-instance HA', detail: 'Live migration + per-field CRDT merge + a self-healing supervisor (heartbeat → self-heal → reconcile). Shipped.', status: 'done' },
+  { id: 'M4', title: 'Cluster + multi-client', detail: 'A fabric carrying VectorMessages between agents and across nodes. Cross-host live migration validated on two KVM machines — process- and microVM-level (the full {VM, host-process} matrix). Teams in four paradigms (Pipeline / Hierarchy / Market / Swarm). The gateway generalized into the cluster front door — capability admission, SSE streaming, peer routing. Shipped.', status: 'done' },
+  { id: 'M5', title: 'Learning control plane', detail: 'RL scheduling + a supervisor agent + self-optimization — "AI manages AI". Next up.', status: 'planned' },
   { id: 'M6', title: 'Pushing down the stack', detail: 'eBPF → unikernel / abstract-machine contract → kernel-bypass vector transport → FPGA primitives.', status: 'planned' },
   { id: 'M7', title: 'First primitive in silicon', detail: 'Tape out a single primitive that is uniquely THALIOX — a MELD silicon primitive (dataflow / capability-memory / vector-transport).', status: 'planned' },
   { id: 'M8', title: 'Vertically integrated node', detail: 'A complete THALIOX machine — running the self-designed MELD cognitive substrate on co-designed silicon.', status: 'planned' },
