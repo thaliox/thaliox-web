@@ -22,4 +22,4 @@ These docs help you **get started**, understand the **core concepts**, and look 
 The whole system is defined by the [TAM Abstract Machine contract](https://github.com/thaliox/thaliox-os/blob/main/docs/rfcs/0001-abstract-machine.md),
 so the software implementation and future custom silicon obey one shared semantics.
 
-> Current status: **M1 single-node MVP shipped (v0.1.0)**. See [development progress](https://thaliox.dev).
+> Current status: **M1 single-node MVP shipped (v0.1.0)**; **M2 microVM-ization complete** — agents run inside a real Firecracker microVM with snapshot/restore. See [development progress](https://thaliox.dev).
