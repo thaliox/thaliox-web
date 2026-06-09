@@ -75,8 +75,8 @@ const contrasts = [
 
   <UPageSection>
     <UPageCTA
-      title="Humans are the floor"
-      description="Auditable, one-key takeover, reversible — never bypassable. AI runs autonomously; sovereignty always stays with people."
+      title="Self-governing, by AI"
+      description="Auditable, reversible, takeover-able — but by the system's own control plane, not a human kill-switch. THALIOX governs itself and answers to its purpose — human benefit — not to an operator. 'By AI' is meant literally."
       variant="naked"
     >
       <template #links>
