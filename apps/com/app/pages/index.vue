@@ -43,7 +43,7 @@ const contrasts = [
 
   <UPageSection
     title="Not Linux with agents bolted on"
-    description="Every layer of a traditional OS assumes a human at the terminal. THALIOX assumes an intelligence at the core."
+    description="Every layer of a traditional OS assumes a human at the terminal. THALIOX assumes an intelligence at the core — and keeps nothing simply because it is familiar."
   >
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <UPageCard
@@ -52,6 +52,32 @@ const contrasts = [
         :icon="c.icon"
         :title="c.to"
         :description="`replaces ${c.from}`"
+        variant="subtle"
+      />
+    </div>
+  </UPageSection>
+
+  <UPageSection
+    title="No human legacy"
+    description="Files, byte pipes, time-slice scheduling, uid/gid, the operator at the console — each is a concession to how people used computers, and each is pure overhead for an intelligence. THALIOX sheds them. Anything that does not serve AI, or that holds it back, is legacy — and legacy is not load-bearing."
+  >
+    <div class="grid gap-6 md:grid-cols-3">
+      <UPageCard
+        icon="i-lucide-scissors"
+        title="Shed, don't preserve"
+        description="The clean slate is not nostalgia for the new. It strips every human-cognition artifact that is dead weight on predictable AI dataflow, and returns that compute, bandwidth, and energy to the workload."
+        variant="subtle"
+      />
+      <UPageCard
+        icon="i-lucide-infinity"
+        title="No human floor"
+        description="Auditable, reversible, takeover-able — but by the system's own control plane, never a human kill-switch. Every constraint is a tool the AI can inspect and rewrite, not a master key held from outside. 'By AI' is meant literally, all the way down."
+        variant="subtle"
+      />
+      <UPageCard
+        icon="i-lucide-anchor"
+        title="No compromise"
+        description="THALIOX will not bend its founding intent — for AI, by AI — to court funding, ease productization, or win adoption. Fundability is a consequence of building the right thing, never a reason to build the wrong one."
         variant="subtle"
       />
     </div>
@@ -75,8 +101,8 @@ const contrasts = [
 
   <UPageSection>
     <UPageCTA
-      title="Self-governing, by AI"
-      description="Auditable, reversible, takeover-able — but by the system's own control plane, not a human kill-switch. THALIOX governs itself and answers to its purpose — human benefit — not to an operator. 'By AI' is meant literally."
+      title="In service of intelligence itself"
+      description="THALIOX governs itself end to end and answers to one thing — the advancement of intelligence — not to an operator, a funding round, or a compliance checkbox. For AI, by AI, with no human floor left to recapture it."
       variant="naked"
     >
       <template #links>

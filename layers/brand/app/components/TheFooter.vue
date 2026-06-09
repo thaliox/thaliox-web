@@ -54,7 +54,7 @@ const columns = [
             <span>THALIOX</span>
           </NuxtLink>
           <p class="text-muted mt-2 text-sm">
-            An operating system for AI, by AI, ultimately for Humans.
+            An operating system for AI, by AI, in service of intelligence itself.
           </p>
         </div>
 
